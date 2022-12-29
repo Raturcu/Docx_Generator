@@ -4,8 +4,8 @@ from tkinter import filedialog
 import PySimpleGUI as sg
 from docxtpl import DocxTemplate
 
-#document_path = Path(__file__).parent / "Fisa_de_inventar_informatic.docx"
-document_path=Path("C:\FisaInventar\DB\Fisa_de_inventar_informatic.docx")
+#document_path = Path(__file__).parent / "your-document-template.docx"
+document_path=Path("path-of-your-document")
 doc = DocxTemplate(document_path)
 
 today = datetime.datetime.today()
@@ -34,14 +34,10 @@ while True:
     if event == sg.WIN_CLOSED or event == "Exit":
         break
     if event == "Create Inventory File":
-        # Add calculated fields to our dict
-       # values["NONREFUNDABLE"] = round(float(values["AMOUNT"]) * 0.2, 2)
         values["TODAY"] = today.strftime("%d-%m-%Y")
-        #values["TODAY_IN_ONE_WEEK"] = today_in_one_week.strftime("%Y-%m-%d")
-
         # Render the template, save new word document & inform user
         doc.render(values)
-        output_path = Path("C:\FisaInventar\De_semnat") / f"{values['UTILIZATOR']}.docx"
+        output_path = Path("output-path") / f"{values['UTILIZATOR']}.docx"
         doc.save(output_path)
         sg.popup("File saved", f"File has been saved here: {output_path}")
         
